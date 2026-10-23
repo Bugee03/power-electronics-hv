@@ -1,109 +1,34 @@
-# ⚡ Power Systems Research
+<div align="center">
 
-This repository contains research, simulations, and practical studies related to **Power Systems Engineering**.
-The focus is on high-voltage systems, power generation, transmission, power electronics, and system stability analysis.
+# ⚡ Power Electronics & High Voltage
 
----
+**LTspice studies of high-voltage generation — voltage doublers and cascaded test transformers — the HV side of my power-electronics work.**
 
-## 📌 Objectives
+![LTspice](https://img.shields.io/badge/sim-LTspice-0072C6)
+![HV](https://img.shields.io/badge/topic-high%20voltage-e0af68)
+![Power](https://img.shields.io/badge/topic-power%20electronics-9ece6a)
 
-* Study and simulate power system components
-* Analyze high-voltage generation techniques
-* Perform stability and fault analysis
-* Implement simulations using LTspice, MATLAB, and Python
-* Document experimental and theoretical findings
+</div>
 
----
+> **RU:** Моделирование высоковольтных схем в LTspice: удвоитель напряжения и каскадный испытательный трансформатор (курс «Техника высоких напряжений», KTÜ).
+> **TR:** LTspice'ta yüksek gerilim devreleri: gerilim katlayıcı ve kaskad test transformatörü (Yüksek Gerilim Tekniği dersi, KTÜ).
 
-## 📂 Repository Structure
+## 🔬 Circuits
 
-```
-power_systems/
-│
-├── circuits_ltspice/      # LTspice schematics and simulation files
-├── matlab_simulations/    # MATLAB scripts and plots
-├── python_analysis/       # Python-based calculations and modeling
-├── reports/               # Technical documentation and explanations
-├── references/            # Books, papers, and useful resources
-└── README.md
-```
+| File | Circuit | Simulation |
+|---|---|---|
+| [`AC_DC_doubler_voltage.asc`](circuits_ltspice/AC_DC_doubler_voltage.asc) | 10 V / 50 Hz source → 1:5 step-up transformer → 2× 1N4007 + 2× 2200 µF voltage doubler → 1 kΩ load | `.tran 0.5 s` |
+| [`cascade_hv_transformer.asc`](circuits_ltspice/cascade_hv_transformer.asc) | 3-stage cascaded HV test transformer, 10 mH : 1 H per stage, secondaries in series-aiding | `.tran 0.2 s` + `.meas` of V<sub>pp</sub>, V<sub>rms</sub>, I<sub>rms</sub> |
 
----
+**Doubler:** each half-cycle charges one capacitor to the peak, so the DC output is ideally
+$V_{DC} \approx 2\,\hat V_{sec} - 2V_F$, with ripple $\Delta V \approx I_{load}/(f\,C)$.
 
-## 🔬 Research Topics
+**Cascade:** stage $k$ is fed from the tertiary of stage $k-1$, so the output is ideally $V_{out} \approx N\cdot V_{stage}$ for $N$ stages.
+Insulation of each stage is only rated for one stage voltage — that is why test transformers are cascaded.
 
-### 1️⃣ High Voltage Engineering
+Open the `.asc` files in LTspice and run.
 
-* Half-wave rectifier
-* Full-wave rectifier
-* Voltage multipliers (Villard, Greinacher)
-* Cascade transformer systems
-* Impulse voltage generation
-* DC high-voltage ripple analysis
-
-### 2️⃣ Power System Analysis
-
-* Per-unit system
-* Load flow analysis
-* Short circuit calculations
-* Stability analysis (Routh-Hurwitz, eigenvalue methods)
-* Transient response
-
-### 3️⃣ Power Electronics in Power Systems
-
-* Rectifiers
-* Inverters
-* DC-link systems
-* 3-phase conversion systems
-* PWM control methods
-
-### 4️⃣ Control in Power Systems
-
-* PID control applications
-* Current measurement techniques
-* Feedback loop design
-* Stability margins
-
----
-
-## 🛠 Tools Used
-
-* **LTspice**
-* **MATLAB / Simulink**
-* **Python (NumPy, SciPy, Matplotlib)**
-* **Git & GitHub**
-
----
-
-## 📈 Example Projects
-
-* High-voltage cascade transformer simulation
-* Greinacher voltage multiplier analysis
-* Impulse voltage waveform modeling
-* Stability analysis of a 6th order polynomial system
-* DC ripple analysis in rectifier circuits
-
----
-
-## 🎯 Learning Outcomes
-
-* Deep understanding of high-voltage generation techniques
-* Practical simulation experience
-* Analytical problem-solving in power systems
-* Improved documentation and research methodology
-
----
-
-## 📚 References
-
-* High Voltage Engineering Fundamentals – E. Kuffel
-* Power System Analysis – Hadi Saadat
-* Power Electronics – Ned Mohan
-
----
-
-## 👨‍💻 Author
-
-Electrical & Electronics Engineering Student
-Focused on power systems, high-voltage engineering, embedded systems, and control systems research.
-
+## 🛣️ Next
+- [ ] Cockcroft–Walton (Greinacher) multiplier: ripple and voltage drop vs. number of stages
+- [ ] Impulse voltage generator (Marx), 1.2/50 µs waveform
+- [ ] Gate drive and switching losses of an IGBT half-bridge (link to my EMS levitation driver)
