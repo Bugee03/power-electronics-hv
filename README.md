@@ -23,7 +23,7 @@
 **Doubler:** each half-cycle charges one capacitor to the peak, so the DC output is ideally
 $V_{DC} \approx 2\,\hat V_{sec} - 2V_F$, with ripple $\Delta V \approx I_{load}/(f\,C)$.
 
-**Cascade:** stage $k$ is fed from the tertiary of stage $k-1$, so the output is ideally $V_{out} \approx N\cdot V_{stage}$ for $N$ stages.
+**Cascade:** the secondaries add up (in a real test set each next stage is fed from a tertiary winding of the previous one), so the output is ideally $V_{out} \approx N\cdot V_{stage}$ for $N$ stages.
 Insulation of each stage is only rated for one stage voltage — that is why test transformers are cascaded.
 
 Open the `.asc` files in LTspice and run.
